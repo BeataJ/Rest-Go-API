@@ -15,8 +15,6 @@ type Event struct {
 	UserID      int
 }
 
-var events = []Event{}
-
 func (e Event) Save() error {
 	// add to database
 	query := `
@@ -28,6 +26,7 @@ func (e Event) Save() error {
 		return err
 	}
 	defer stmt.Close()
+
 	result, err := stmt.Exec(e.Name, e.Description, e.Location, e.DataTime, e.UserID)
 	if err != nil {
 		return err
@@ -45,7 +44,7 @@ func GetAllEvents() ([]Event, error) {
 	}
 	defer rows.Close()
 
-	// var events []Event
+	var events []Event
 
 	for rows.Next() {
 		var event Event
