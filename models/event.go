@@ -15,7 +15,7 @@ type Event struct {
 	UserID      int64
 }
 
-func (e Event) Save() error {
+func (e *Event) Save() error {
 	// add to database
 	query := `
 		INSERT INTO events(name, description, location, datetime, user_id)
